@@ -1,0 +1,28 @@
+body {
+	font-family: 'Lato', sans-serif;
+	background-color: grey;
+}
+
+#display-train-info tr:nth-child(even) {
+    background-color: orange;
+}
+
+#display-train-info tr:nth-child(odd) {
+    background-color: lightgrey;
+}
+
+#train-list {
+	border-color: black;
+}
+
+#add-train-panel {
+	border-color: black;
+}
+
+.jumbotron {
+	border-color: black;
+}
+
+#submit-train {
+	background-color: lightblue;
+}
