@@ -21,7 +21,15 @@ body {
 
 .jumbotron {
 	border-color: black;
+	background-image: url("../images/train_station.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	color: orange;
+	font-weight: bold;
 }
+
+
 
 #submit-train {
 	background-color: lightblue;

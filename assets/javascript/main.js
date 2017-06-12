@@ -40,6 +40,8 @@ $(document).ready(function(){
             trainFrequency: trainFrequency
         });
 
+
+
         //--empty the input field after submitting
         $("#train-name").val("");
         $("#destination").val("");
@@ -47,6 +49,9 @@ $(document).ready(function(){
         $("#frequency").val("");
 
         console.log(trainName+" "+ destination+" "+time+" "+trainFrequency);
+
+
+
     });
 
     //-----Display the database onscreen---------------
@@ -94,7 +99,6 @@ $(document).ready(function(){
         var nextTrain = moment().add(timeMinutesTillTrain, "minutes");
         console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
 
-
         // display the information on screen 
         $("#display-train-info").append(
                 "<tr>" +
@@ -102,10 +106,14 @@ $(document).ready(function(){
                     "<th>" + childSnapshot.val().destination+"</th>"+
                     "<th>" + childSnapshot.val().trainFrequency + "</th>"+
                     "<th>" + moment(nextTrain).format("hh:mm a") + "</th>" + 
-                    "<th>" + timeMinutesTillTrain + "</th>" +      
+                    "<th>" + timeMinutesTillTrain + "</th>" + 
+                    "<th>" + "<button></button>" + "</th>" +     
                 "</tr>" 
             )
         }, function(errorObject){
             console.log("Errors handled: " + errorObject.code);
     });
+
+
+
 });

@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <!--jQuery-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <!--jQuery Validate-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
         <!--Stylesheet-->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <!--Firebase-->
@@ -26,7 +28,7 @@
                     <div class = "row">
                         <div class = "col-md-12">
                         </div>
-                        <h1 id= "headfont">Current Trains</h1>
+                        <h1 id= "headfont">Train Schedule</h1>
                     </div>
             </div>
 
@@ -44,8 +46,8 @@
                                         <th>Destination</th>
                                         <th>Frequency</th>
                                         <th>Next Train Time</th>
-                                        <th>Minutes To Arrival</th>
-                                        
+                                        <th>Minutes To Arrival</th>    
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="display-train-info">
@@ -64,22 +66,22 @@
                         </div>
 
                         <div class="panel-body">
-                            <form>
+                            <form id="trainForm">
                                 <div class="form-group">
                                     <label for="train-name">Train Name</label>
-                                    <input class="form-control" id="train-name" type="text">
+                                    <input class="form-control" id="train-name" type="text" name="trainName">
                                 </div>
                                 <div class="form-group">
                                     <label for="destination">Destination</label>
-                                    <input class="form-control" id="destination" type="text">
+                                    <input class="form-control" id="destination" type="text" name="destination">
                                 </div>
                                 <div class="form-group">
                                     <label for="first-train-time">First Train Time</label>
-                                    <input class="form-control" id="first-train-time" type="time">
+                                    <input class="form-control" id="first-train-time" type="time" name="firstTrainTime">
                                 </div>
                                 <div class="form-group">
                                     <label for="frequency">Frequency</label>
-                                    <input class="form-control" id="frequency" type="number">
+                                    <input class="form-control" id="frequency" type="number" name="frequency">
                                 </div>
                                 <button class="btn btn-default" id="submit-train" type="submit">Submit</button>
                             </form>
