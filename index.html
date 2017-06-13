@@ -20,6 +20,7 @@
         <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
         <!--Moments-->
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
     </head>
 
     <body>
@@ -28,7 +29,7 @@
                     <div class = "row">
                         <div class = "col-md-12">
                         </div>
-                        <h1 id= "headfont">Train Schedule</h1>
+                        <h1 id= "headfont">Train Scheduler</h1>
                     </div>
             </div>
 
@@ -69,19 +70,19 @@
                             <form id="trainForm">
                                 <div class="form-group">
                                     <label for="train-name">Train Name</label>
-                                    <input class="form-control" id="train-name" type="text" name="trainName">
+                                    <input class="form-control" id="train-name" type="text" name="trainName" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="destination">Destination</label>
-                                    <input class="form-control" id="destination" type="text" name="destination">
+                                    <input class="form-control" id="destination" type="text" name="destination" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="first-train-time">First Train Time</label>
-                                    <input class="form-control" id="first-train-time" type="time" name="firstTrainTime">
+                                    <input class="form-control" id="first-train-time" type="time" name="firstTrainTime" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="frequency">Frequency</label>
-                                    <input class="form-control" id="frequency" type="number" name="frequency">
+                                    <input class="form-control" id="frequency" type="number" name="frequency" required/>
                                 </div>
                                 <button class="btn btn-default" id="submit-train" type="submit">Submit</button>
                             </form>
@@ -91,7 +92,12 @@
             </div>
         <!--End Container-->
         </div>
-        <!--Javascript-->
+        <!--JS-->
         <script src="assets/javascript/main.js"></script>
+
+        <script>
+
+        </script>
+        
     </body>
 </html>

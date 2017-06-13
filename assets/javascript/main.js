@@ -19,18 +19,40 @@ $(document).ready(function(){
     var time = 0;
     var trainFrequency = 0;
 
-    //---Functions Go Here---------
+    // //---Functions Go Here---------
+
 
 
     //---On the click submit button event
     $("#submit-train").on("click", function(event){
         //--prevent form from submitting
         event.preventDefault();
-        //--get input values
-        trainName = $("#train-name").val().trim();
-        destination = $("#destination").val().trim();
-        time = $("#first-train-time").val().trim();
-        trainFrequency = $("#frequency").val().trim(); 
+
+        // Prevent empty form from submitting
+        if( $("#train-name").val() === ""){
+            return false;
+        } else {
+            trainName = $("#train-name").val().trim();
+        }
+
+        if( $("#destination").val() === ""){
+            return false;
+        } else {
+           destination = $("#destination").val().trim();
+        }
+
+       if( $("#first-train-time").val() === ""){
+            return false;
+        } else {
+            time = $("#first-train-time").val().trim();
+        }
+
+       if( $("#frequency").val() === ""){
+            return false;
+        } else {
+            trainFrequency = $("#frequency").val().trim();
+        }
+
 
         //--populate database with the value submitted
         database.ref().push({
@@ -48,56 +70,56 @@ $(document).ready(function(){
         $("#first-train-time").val("");
         $("#frequency").val("");
 
-        console.log(trainName+" "+ destination+" "+time+" "+trainFrequency);
+        // console.log(trainName+" "+ destination+" "+time+" "+trainFrequency);
 
-
+        
 
     });
 
     //-----Display the database onscreen---------------
     database.ref().on("child_added", function(childSnapshot){
         // Console to make the the function is working if not give error code
-        console.log(childSnapshot.val().trainName);
-        console.log(childSnapshot.val().destination);
-        console.log(childSnapshot.val().time);
-        console.log(childSnapshot.val().trainFrequency);
-
+        // console.log(childSnapshot.val().trainName);
+        // console.log(childSnapshot.val().destination);
+        // console.log(childSnapshot.val().time);
+        // console.log(childSnapshot.val().trainFrequency);
+        // storing the snapshot.val() in a variable for convenience
 
         //--Write the logic needed to determine when next train will arrive
         // determine when the first train will be scheduled to arraive
         //var firstTrainArrivesAt = "06:00";
 
         var timeFrequency = childSnapshot.val().trainFrequency;
-        console.log("Train Time Frequency: " + timeFrequency);
+        // console.log("Train Time Frequency: " + timeFrequency);
 
         //Store the time
         var trainTime = childSnapshot.val().time;
-        console.log("Train Time: " + trainTime);
+        // console.log("Train Time: " + trainTime);
 
         // first time
         timeConverted = moment(trainTime, "hh:mm").subtract(1, "years");
-        console.log("time converted: " + timeConverted);
+        // console.log("time converted: " + timeConverted);
 
         //current time
         currentTime = moment();
-        console.log("Current time: " + moment(currentTime).format("hh:mm"));
+        // console.log("Current time: " + moment(currentTime).format("hh:mm"));
 
         //difference between times
         differenceInTime = moment().diff(moment(timeConverted), "minutes");
-        console.log('Difference In Time: ' + differenceInTime);
+        // console.log('Difference In Time: ' + differenceInTime);
 
 
         //Time apart
         timeRemainder = differenceInTime % childSnapshot.val().trainFrequency;
-        console.log("Time Remainder: " +timeRemainder);
+        // console.log("Time Remainder: " +timeRemainder);
 
         //Minutes until train
         var timeMinutesTillTrain = timeFrequency - timeRemainder;
-        console.log("Minutes Till Next Train: " + moment(timeMinutesTillTrain, "minutes"));
+        // console.log("Minutes Till Next Train: " + moment(timeMinutesTillTrain, "minutes"));
 
         //Next Train
         var nextTrain = moment().add(timeMinutesTillTrain, "minutes");
-        console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
+        // console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
 
         // display the information on screen 
         $("#display-train-info").append(
@@ -107,7 +129,7 @@ $(document).ready(function(){
                     "<th>" + childSnapshot.val().trainFrequency + "</th>"+
                     "<th>" + moment(nextTrain).format("hh:mm a") + "</th>" + 
                     "<th>" + timeMinutesTillTrain + "</th>" + 
-                    "<th>" + "<button></button>" + "</th>" +     
+                     "<th>" + + "</th>" +     
                 "</tr>" 
             )
         }, function(errorObject){
