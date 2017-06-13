@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyCGfU61azB0sJ91HbaKja7-jwXWauH7VKQ",
@@ -11,13 +12,38 @@ $(document).ready(function(){
 
     firebase.initializeApp(config);
 
-    //-----Global Variables----
 
+    //-----Global Variables----
+   
     var database = firebase.database();
     var trainName = "";
     var destination = "";
     var time = 0;
     var trainFrequency = 0;
+
+    //Google Sign in
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    firebase.auth().signInWithRedirect(provider);
+
+    firebase.auth().getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // ...
+      }
+      // The signed-in user info.
+      var user = result.user;
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
 
     // //---Functions Go Here---------
 
@@ -84,6 +110,8 @@ $(document).ready(function(){
         // console.log(childSnapshot.val().time);
         // console.log(childSnapshot.val().trainFrequency);
         // storing the snapshot.val() in a variable for convenience
+        runTime();
+
 
         //--Write the logic needed to determine when next train will arrive
         // determine when the first train will be scheduled to arraive
@@ -121,14 +149,39 @@ $(document).ready(function(){
         var nextTrain = moment().add(timeMinutesTillTrain, "minutes");
         // console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
 
-        // display the information on screen 
+        //--try to count down to next Train
+        //--variable to hold the integer for minutes
+        var number = timeMinutesTillTrain;
+
+        //  Variable that will hold our interval ID when we execute the "run" function
+        var intervalId;
+
+        // Function that counts down
+        function runTime(){
+            intervalId = setTimeout(decrement, 1000 * 60);
+        }
+
+        function decrement(){
+            number--;
+            $("#timer").html(number);
+            if(number === 0 ) {
+                stop();
+            }
+            console.log("The number is:" + number);
+        }
+
+        function stop(){
+            clearInterval(intervalId);
+        }
+
+        // display the information on screen //timeMinutesTillTrain// goes in last <th>
         $("#display-train-info").append(
                 "<tr>" +
                     "<th>" + childSnapshot.val().trainName +"</th>"+
                     "<th>" + childSnapshot.val().destination+"</th>"+
                     "<th>" + childSnapshot.val().trainFrequency + "</th>"+
                     "<th>" + moment(nextTrain).format("hh:mm a") + "</th>" + 
-                    "<th>" + timeMinutesTillTrain + "</th>" + 
+                    "<th id='timer'></th>" + 
                      "<th>" + + "</th>" +     
                 "</tr>" 
             )
